@@ -8,12 +8,13 @@ class Timer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hours: this.props.startTime.hours,
-            minutes: this.props.startTime.minutes,
-            seconds: this.props.startTime.seconds,
+            hours: this.props.hours,
+            minutes: this.props.minutes,
+            seconds: this.props.seconds,
             pause: !this.props.autostart,
-            time: this.props.hours * (1000 * 60 * 60) + this.props.minutes * (1000 * 60) + this.props.seconds * 1000,
-            timeLeft: 0
+            time: 0,
+            timeLeft: 0,
+            step: this.props.step
         }
     }
 
@@ -28,15 +29,20 @@ class Timer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {hours, minutes, seconds} = this.props.startTime;
-        const {hours : hoursPrev, minutes : minutesPrev, seconds : secondsPrev} = prevProps.startTime;
+        const {hours, minutes, seconds, step} = this.props;
+        const {hours : hoursPrev, minutes : minutesPrev, seconds : secondsPrev, step : stepPrev} = prevProps;
 
-        if (hours !== hoursPrev || minutes !== minutesPrev || seconds !== secondsPrev) {
+        if (hours !== hoursPrev || minutes !== minutesPrev || seconds !== secondsPrev || step !== stepPrev) {
             this.setState({
                 hours: hours,
                 minutes: minutes,
                 seconds: seconds,
+                time: hours * (1000 * 60 * 60) + minutes * (1000 * 60) + seconds * 1000,
+                timeLeft: hours * (1000 * 60 * 60) + minutes * (1000 * 60) + seconds * 1000,
+                step: step
             });
+
+            this.pauseTimer();
 
             this.props.onTimeChange(`${hours}:${minutes}:${seconds}`);
         }
@@ -45,7 +51,7 @@ class Timer extends Component {
     tick() {
         this.setState((state) => {
             const time = state.hours * (1000 * 60 * 60) + state.minutes * (1000 * 60) + state.seconds * 1000;
-            const timeLeft = time - this.props.step;
+            const timeLeft = time - this.state.step * 1000;
             const hours = Math.floor(timeLeft / (1000 * 60 * 60));
             const minutes = Math.floor((timeLeft / 1000 / 60) % 60);
             const seconds = Math.floor((timeLeft / 1000) % 60);
@@ -59,7 +65,8 @@ class Timer extends Component {
                     seconds: 0,
                     time: 0,
                     timeLeft: 0,
-                    pause: true
+                    pause: true,
+                    step: 1
                 }
             } else this.props.onTick(`${hours}:${minutes}:${seconds}`);
 
@@ -67,14 +74,13 @@ class Timer extends Component {
                 hours: hours,
                 minutes: minutes,
                 seconds: seconds,
-                time: time,
                 timeLeft: timeLeft
             }
         });
     }
 
     startTimer() {
-        this.timerId = setInterval(() => this.tick(), this.props.step);
+        this.timerId = setInterval(() => this.tick(), this.state.step * 1000);
         this.setState(() => ({pause: false}));
         this.props.onTimeStart();
     }

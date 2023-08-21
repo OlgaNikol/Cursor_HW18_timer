@@ -9,7 +9,8 @@ class App extends Component {
         this.state = {
             hours: 0,
             minutes: 0,
-            seconds: 0
+            seconds: 0,
+            step: 1
         };
     }
 
@@ -18,8 +19,18 @@ class App extends Component {
             let time;
             if (!value || value < 0) time = 0;
             else time = value;
+
             this.setState({
                 [inputType]: time
+            });
+        }
+
+        const onPickingStep = (value) => {
+            let step = 0;
+            if (!value || value < 0) step = 1;
+            else step = value;
+            this.setState({
+                step: step
             });
         }
 
@@ -39,11 +50,17 @@ class App extends Component {
                         <label>Seconds</label>
                         <input value={this.state.seconds} onChange={(e) => onPickingTime(e.target.value, 'seconds')} type="number" min="0" />
                     </div>
+                    <div>
+                        <label>Step</label>
+                        <input value={this.state.step} onChange={(e) => onPickingStep(e.target.value)} type="number" min="1" />
+                    </div>
                 </div>
                 <Timer
                     autostart={false}
-                    startTime={this.state}
-                    step={2000}
+                    hours={this.state.hours}
+                    minutes={this.state.minutes}
+                    seconds={this.state.seconds}
+                    step={this.state.step}
                     onTick={(time) => console.log("Залишилось часу: " + time)}
                     onTimeEnd={() => console.log("Час вийшов!")}
                     onTimeStart={() => console.log("Таймер запущено!")}
