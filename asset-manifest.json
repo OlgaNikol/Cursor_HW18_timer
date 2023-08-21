@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Cursor_HW18_timer/static/css/main.098999eb.css",
+    "main.js": "/Cursor_HW18_timer/static/js/main.3edb7588.js",
+    "index.html": "/Cursor_HW18_timer/index.html",
+    "main.098999eb.css.map": "/Cursor_HW18_timer/static/css/main.098999eb.css.map",
+    "main.3edb7588.js.map": "/Cursor_HW18_timer/static/js/main.3edb7588.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.098999eb.css",
+    "static/js/main.3edb7588.js"
+  ]
+}
