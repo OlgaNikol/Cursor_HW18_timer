@@ -1,7 +1,7 @@
 import './Timer.css';
 
 import { Component } from "react";
-import Progress from "./Progress";
+import Progress from "../progressBar/Progress";
 
 class Timer extends Component {
     
@@ -68,7 +68,9 @@ class Timer extends Component {
                     pause: true,
                     step: 1
                 }
-            } else this.props.onTick(`${hours}:${minutes}:${seconds}`);
+            } else {
+                this.props.onTick(`${hours}:${minutes}:${seconds}`);
+            }
 
             return {
                 hours: hours,
