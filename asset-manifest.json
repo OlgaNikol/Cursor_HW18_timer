@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Cursor_HW18_timer/static/css/main.098999eb.css",
+    "main.css": "/Cursor_HW18_timer/static/css/main.01211458.css",
     "main.js": "/Cursor_HW18_timer/static/js/main.d42d2a83.js",
     "index.html": "/Cursor_HW18_timer/index.html",
-    "main.098999eb.css.map": "/Cursor_HW18_timer/static/css/main.098999eb.css.map",
+    "main.01211458.css.map": "/Cursor_HW18_timer/static/css/main.01211458.css.map",
     "main.d42d2a83.js.map": "/Cursor_HW18_timer/static/js/main.d42d2a83.js.map"
   },
   "entrypoints": [
-    "static/css/main.098999eb.css",
+    "static/css/main.01211458.css",
     "static/js/main.d42d2a83.js"
   ]
 }
